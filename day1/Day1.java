@@ -50,14 +50,12 @@ class Day1 {
     }
 
     private static void problem2(List<String> list) {
+
         int sum = 0;
-
+        
         for(int i = 0; i<list.size(); i++) {
-
             StringBuilder sb = new StringBuilder();
-
             int num1 = 0;
-
             for(char c: list.get(i).toCharArray()) {
                 if(Character.isDigit(c)) {
                     num1 = Character.getNumericValue(c);
@@ -71,11 +69,8 @@ class Day1 {
                     }
                 }
             }
-
             sb = new StringBuilder();
-
             int num2 = 0;
-
             for(int j = list.get(i).toCharArray().length - 1; j >= 0; j--) {
                 if(Character.isDigit(list.get(i).toCharArray()[j])) {
                     num2 = Character.getNumericValue(list.get(i).toCharArray()[j]);
@@ -89,9 +84,7 @@ class Day1 {
                     }
                 }
             }
-
             sum += (num1 * 10) + num2;
-
         }
 
         System.out.println("Solution 2: " + sum);
