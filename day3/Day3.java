@@ -20,7 +20,7 @@ public class Day3 {
     private static HashMap<String,ArrayList<Integer>> gearsCoord;
 
     public static void main(String[] args) throws IOException {
-        readFromFile("input.txt");
+        readFromFile("inputA.txt");
         problem1();
     }
 
@@ -34,64 +34,40 @@ public class Day3 {
     }
 
     private static void problem1() {
-
         gearsCoord = new HashMap<>();
-
         VMAX = matrix.size();
         HMAX = matrix.get(0).size(); // Assuming all strings have the same length. 
-
         System.out.println("HMAX: " + HMAX + " VMAX: " + VMAX);
-
         int sum = 0;
-
+        int totalGearRatio = 0;
         StringBuilder sb = new StringBuilder();
-
         boolean validNum = false;
         boolean addedNumber = false;
-
         for(int r = 0; r<VMAX; r++) {
-
             HashSet<String> foundCoords = new HashSet<>();
-            
             for(int c = 0; c<HMAX; c++) {
-
                 addedNumber = false;
-
                 String current = matrix.get(r).get(c); 
-
                 // Check if spot is a number
                 if(!isNumeric(current) || c == HMAX-1){
-
                     if(isNumeric(current) && validNum) sb.append(current); 
-
                     if(isNumeric(sb.toString()) && validNum){
-
                         int finNum =Integer.parseInt(sb.toString());
                         sum += finNum;
-
                         for(String s : foundCoords) {
-
                             if(gearsCoord.containsKey(s)) {
                                 gearsCoord.get(s).add(finNum);
                             } else {
                                 gearsCoord.put(s, new ArrayList<>());
                                 gearsCoord.get(s).add(finNum);
                             }
-
                         }
-
                         foundCoords = new HashSet<>();
-
                     }
-
                     sb = new StringBuilder();
                     validNum = false;
                     continue;
-
                 } 
-
-                // Check each char L,R,U,D
-
                 // // Up
                 if(r != 0) {
                     String uLeft = ".";
@@ -112,7 +88,6 @@ public class Day3 {
                         //continue;
                     }
                 }
-
                 // // Left
                 if(c != 0) {
                     String left = matrix.get(r).get(c-1);
@@ -126,7 +101,6 @@ public class Day3 {
                     }
                     if(left.equals("*")) foundCoords.add((r) + " " + (c-1));
                 }
-
                 // // Down 
                 if(r != VMAX-1) {
                     String dLeft = ".";
@@ -147,7 +121,6 @@ public class Day3 {
                         //continue;
                     };
                 }
-
                 // // Right
                 if(c != HMAX-1) {
                     String right = matrix.get(r).get(c+1);
@@ -166,20 +139,8 @@ public class Day3 {
                     } 
                     if(right.equals("*")) foundCoords.add((r) + " " + (c+1));
                 }
-
             }
         }
-
-        System.out.println("Sum of valid numbers: " + sum);
-
-        for (String name: gearsCoord.keySet()) {
-            String key = name.toString();
-            String value = gearsCoord.get(name).toString();
-            System.out.println(key + " " + value);
-        }
-
-        int totalGearRatio = 0;
-
         for(String key : gearsCoord.keySet()) {
             int l = 1;
             if(gearsCoord.get(key).size() <= 1) continue;
@@ -188,25 +149,12 @@ public class Day3 {
             }
             totalGearRatio += l;
         }
-
         System.out.println("Sum of valid numbers: " + sum);
         System.out.println("Sum of gear ratio: " + totalGearRatio);
-
     }
 
     private static boolean isSpecialChar(String s) {
-        return 
-        !(s.equals(".") ||
-        s.equals("0") ||
-        s.equals("1") ||
-        s.equals("2") ||
-        s.equals("3") ||
-        s.equals("4") ||
-        s.equals("5") ||
-        s.equals("6") ||
-        s.equals("7") ||
-        s.equals("8") ||
-        s.equals("9"));
+        return !".0123456789".contains(s);
     }
 
     public static boolean isNumeric(String string) {
@@ -214,7 +162,6 @@ public class Day3 {
         if(string == null || string.equals("")) {
             return false;
         }
-        
         try {
             intValue = Integer.parseInt(string);
             return true;
