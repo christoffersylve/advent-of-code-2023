@@ -10,18 +10,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import static java.nio.charset.StandardCharsets.UTF_8;
 // 
-
 public class Day3 {
 
     private static int VMAX, HMAX;
-
     private static ArrayList<ArrayList<String>> matrix;
-
     private static HashMap<String,ArrayList<Integer>> gearsCoord;
 
     public static void main(String[] args) throws IOException {
-        readFromFile("inputA.txt");
+        readFromFile("inputE.txt");
         problem1();
+        System.out.println("----------------------------");
+        newProblem1();
     }
 
     private static void readFromFile(String filePath) throws IOException{
@@ -37,7 +36,6 @@ public class Day3 {
         gearsCoord = new HashMap<>();
         VMAX = matrix.size();
         HMAX = matrix.get(0).size(); // Assuming all strings have the same length. 
-        System.out.println("HMAX: " + HMAX + " VMAX: " + VMAX);
         int sum = 0;
         int totalGearRatio = 0;
         StringBuilder sb = new StringBuilder();
@@ -152,18 +150,15 @@ public class Day3 {
         System.out.println("Sum of valid numbers: " + sum);
         System.out.println("Sum of gear ratio: " + totalGearRatio);
     }
-
+    
     private static boolean isSpecialChar(String s) {
         return !".0123456789".contains(s);
     }
 
-    public static boolean isNumeric(String string) {
-        int intValue;   
-        if(string == null || string.equals("")) {
-            return false;
-        }
+    public static boolean isNumeric(String string) { 
+        if(string == null || string.equals("")) return false;
         try {
-            intValue = Integer.parseInt(string);
+            int intValue = Integer.parseInt(string);
             return true;
         } catch (NumberFormatException e) {
         }
