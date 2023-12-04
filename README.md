@@ -18,21 +18,6 @@ This repository contains Java solutions for the Advent of Code 2023 challenge. E
 
 3. **Explore the solutions and choose the day you are interested in.**
 
-## Directory Structure
-
-├── src
-│ ├── main
-│ │ └── java
-│ │ ├── Day1.java
-│ │ ├── Day2.java
-│ │ └── ...
-│ └── test
-│ └── java
-│ ├── Day1Test.java
-│ ├── Day2Test.java
-│ └── ...
-└── .gitignore
-
 ## Running the Solutions
 
 To run a specific day's solution:
