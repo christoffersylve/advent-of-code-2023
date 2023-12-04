@@ -34,13 +34,13 @@ public class Day4 {
             int nbr;
             tickets.add(new HashSet<Integer>());
             while(sc.hasNextInt()) {
-                nbr = numeric(sc.next());
+                nbr = Integer.parseInt(sc.next());
                 tickets.get(index).add(nbr);
             }
             sc.next();
             winningTickets.add(new HashSet<Integer>());
             while(sc.hasNextInt()) {
-                nbr = numeric(sc.next());
+                nbr = Integer.parseInt(sc.next());
                 winningTickets.get(index).add(nbr);
             }
             index++;
@@ -70,15 +70,5 @@ public class Day4 {
                 } 
         }
         System.out.println("Sum of copies: " + IntStream.of(copies).sum());
-    }
-
-    public static int numeric(String string) { 
-        if(string == null || string.equals("")) return -1;
-        try {
-            int intValue = Integer.parseInt(string);
-            return intValue;
-        } catch (NumberFormatException e) {
-        }
-        return -1;
     }
 }
