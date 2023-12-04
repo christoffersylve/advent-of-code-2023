@@ -20,7 +20,6 @@ This repository contains Java solutions for the Advent of Code 2023 challenge. E
 
 ## Directory Structure
 
-.
 ├── day1
 │   ├── Day1.java
 │   └── input.txt
@@ -30,9 +29,6 @@ This repository contains Java solutions for the Advent of Code 2023 challenge. E
 ├── day3
 │   ├── Day3.java
 │   └── input.txt
-.
-.
-.
 │           
 └── README.md
 
