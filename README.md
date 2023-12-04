@@ -4,8 +4,32 @@ This repository contains Java solutions for the Advent of Code 2023 challenge. E
 
 ## Getting Started
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/your-username/advent-of-code-2023-java.git
-   cd advent-of-code-2023-java
+1. **Clone this repository:**
+
+    ```bash
+    git clone https://github.com/your-username/advent-of-code-java.git
+    ```
+
+2. **Navigate to the project directory:**
+
+    ```bash
+    cd advent-of-code-java
+    ```
+
+3. **Explore the solutions and choose the day you are interested in.**
+
+## Directory Structure
+
+The repository is organized by days, with each day containing a Java file (`DayX.java`) for the corresponding challenge.
+
+## Running the Solutions
+
+To run a specific day's solution:
+
+```bash
+java DayX.java
+
+
+
+
 
