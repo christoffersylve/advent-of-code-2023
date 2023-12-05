@@ -24,7 +24,7 @@ public class Day4 {
         problem1();
         problem2();
     }
-
+    
     private static void readFromfile(String filePath) throws IOException  {
         File file = new File(filePath);
         Scanner sc = new Scanner(file);
@@ -38,6 +38,7 @@ public class Day4 {
                 tickets.get(index).add(nbr);
             }
             sc.next();
+            
             winningTickets.add(new HashSet<Integer>());
             while(sc.hasNextInt()) {
                 nbr = Integer.parseInt(sc.next());
