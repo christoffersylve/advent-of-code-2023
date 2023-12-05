@@ -1,8 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Day5 {
 
@@ -11,17 +14,19 @@ public class Day5 {
     static ArrayList<Long> start = new ArrayList<>(); 
     static ArrayList<Long> end = new ArrayList<>();
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, InterruptedException, ExecutionException {
+        // Execution time for reading from file
         long start = System.currentTimeMillis();
         readFromFile("input.txt");
-        System.out.println("readFromFile(): " + (System.currentTimeMillis()-start) + " ms");
+        System.out.println("readFromFile(): " + (System.currentTimeMillis()-start)/1000 + " seconds");
+        // Execution time for problem 1
         start = System.currentTimeMillis();
         problem1();
-        System.out.println("Problem 2: " + 26714516);
-        System.out.println("problem1(): " + (System.currentTimeMillis()-start) + " ms");
+        System.out.println("problem1(): " + (System.currentTimeMillis()-start)/1000 + " seconds");
+        // Execution time for problem 2
         start = System.currentTimeMillis();
         problem2();
-        System.out.println("problem2(): " + (System.currentTimeMillis()-start) + " ms");
+        System.out.println("problem2(): " + (System.currentTimeMillis()-start)/1000 + " seconds");
     }
 
     private static void readFromFile(String filePath) throws FileNotFoundException {
@@ -68,33 +73,39 @@ public class Day5 {
         System.out.println("Problem 1: " + minLocation);
     }
 
-    private static void problem2() {
-        long minLocation = (long) Long.MAX_VALUE;
-        long newMapping= (long) 0;
-        long to = 0;
-        long from = 0;
-        long range = 0;
-
+    private static void problem2() throws InterruptedException, ExecutionException {
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ArrayList<Future<Long>> futures = new ArrayList<>();
         for(int r=0; r<seeds.size(); r+=2) {
-            //System.out.println("Progress: " + (r*10) + "%");
             long start = seeds.get(r);
             long end = seeds.get(r+1);
-            for(long s = start; s<start+end; s++) { 
-                newMapping = s;
-                for(ArrayList<Long[]> mapping : mappings) {
-                    for(int i=0;i<mapping.size();i++) {
-                        to = mapping.get(i)[0];
-                        from = mapping.get(i)[1];
-                        range = mapping.get(i)[2];
-                        if(newMapping >= from && newMapping <= (range+from)) {
-                            newMapping = newMapping - from + to;
-                            break;
-                        } 
+            Future<Long> future = executorService.submit(() -> {
+                long minLocation = (long) Long.MAX_VALUE;
+                for(long s = start; s<start+end; s++) { 
+                    long newMapping = s;
+                    for(ArrayList<Long[]> mapping : mappings) {
+                        for(int i=0;i<mapping.size();i++) {
+                            long to = mapping.get(i)[0];
+                            long from = mapping.get(i)[1];
+                            long range = mapping.get(i)[2];
+                            if(newMapping >= from && newMapping < (range+from)) {
+                                newMapping = newMapping - from + to;
+                                break;
+                            } 
+                        }
                     }
+                    minLocation = (newMapping < minLocation) ? newMapping : minLocation;
                 }
-                minLocation = (newMapping < minLocation) ? newMapping : minLocation;
-            }
+                return minLocation;
+            });
+            futures.add(future);
         }
-        System.out.println("Problem 2: " + minLocation);
+        long min = Long.MAX_VALUE;
+        for(Future<Long> f : futures) {
+            Long newMin = f.get();
+            min =  newMin < min ? newMin : min; 
+        }
+        System.out.println("Problem 2: " + min);
+        executorService.close();
     }
 }
