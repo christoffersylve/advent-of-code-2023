@@ -24,14 +24,25 @@ public class Day6 {
 
 
         private static void readFromFile(String filePath) throws IOException {
-        File file = new File(filePath);
-        Scanner sc = new Scanner(file);
-        // Imports the seeds.
-        sc.next();
-        while(sc.hasNextLong()) time.add(sc.nextInt());
-        sc.next();
-        while(sc.hasNextInt()) record.add(sc.nextInt());
-        sc.close();
+            // TOTO:
+            // Refactor to read in strings of numbers. data structures are created in problem1() and problem2()
+            File file = new File(filePath);
+            Scanner sc = new Scanner(file);
+            // Imports the seeds.
+            sc.next();
+            while(sc.hasNextLong()) time.add(sc.nextInt());
+            sc.next();
+            while(sc.hasNextInt()) record.add(sc.nextInt());
+            sc.close();
+            StringBuilder sb = new StringBuilder();
+            sc = new Scanner(file);
+            sc.next();
+            while(sc.hasNextLong()) sb.append(sc.nextInt());
+            start = Long.parseLong(sb.toString().strip());
+            sb = new StringBuilder();
+            sc.next();
+            while(sc.hasNextLong()) sb.append(sc.nextInt());
+            end = Long.parseLong(sb.toString().strip());
         }
 
         private static void problem1() {
@@ -48,6 +59,10 @@ public class Day6 {
                 waysToWin=0;
             }
             System.out.println("Problem 2: "+product);
+        }
+        // For problem 2       
+        private static boolean isRecord(long start) {
+            return start * (end-start)>end;
         }
 }
 
