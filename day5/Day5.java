@@ -17,7 +17,7 @@ public class Day5 {
     public static void main(String[] args) throws FileNotFoundException, InterruptedException, ExecutionException {
         // Execution time for reading from file
         long start = System.currentTimeMillis();
-        readFromFile("input.txt");
+        readFromFile("inputA.txt");
         System.out.println("readFromFile(): " + (System.currentTimeMillis()-start)/1000 + " seconds");
         // Execution time for problem 1
         start = System.currentTimeMillis();
