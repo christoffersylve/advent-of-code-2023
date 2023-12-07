@@ -20,7 +20,6 @@ public class Day3 {
         readFromFile("inputE.txt");
         problem1();
         System.out.println("----------------------------");
-        newProblem1();
     }
 
     private static void readFromFile(String filePath) throws IOException{
