@@ -1,15 +1,10 @@
 package day7;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -19,7 +14,6 @@ public class Day7 {
 
     public static void main(String[] args) throws IOException {
         readFromFile("day7/input.txt");
-        problem1();
         problem2();
     }
     
@@ -32,17 +26,13 @@ public class Day7 {
         hands.sort((a,b) -> a.compareTo(b));
     }
     
-    private static void problem1() {
+    private static void problem2() {
         int sum = 0;
         hands.sort((h1,h2) -> h1.compareTo(h2));
         for(int i=1; i<=hands.size(); i++) sum += hands.get(i-1).bet*i;
         System.out.println("Problem 1: " + sum);
     }
 
-    private static void problem2() {
-
-    }
-    
 }
 
 class Hand implements Comparable<Hand> {
@@ -51,6 +41,7 @@ class Hand implements Comparable<Hand> {
     public int[] cardsByValue = new int[15];
     ArrayList<Integer> thisCard = new ArrayList<>();
     public int bet;
+    public int nbrJokers;
 
     public Hand(String s, String bet) {
         this.hand = new int[5];
@@ -62,16 +53,24 @@ class Hand implements Comparable<Hand> {
                     Character[] t = {'T','J','Q','K','A'};
                     ArrayList<Character> temp = new ArrayList<Character>();
                     for(Character ch : t) temp.add(ch);
-                    hand[i] = temp.indexOf(c) + 10;
+                    hand[i] = temp.indexOf(c) == 1 ? 1 : temp.indexOf(c) + 10; // Change!
             }
         }
+
         for(int i : hand) cardsByValue[i]++;
-        for(int i : this.cardsByValue) if(i>0) thisCard.add(i);
+        for(int i = 0; i<this.cardsByValue.length; i++) {
+            if(this.cardsByValue[i]>0) {
+                if(i==1) {
+                    nbrJokers = this.cardsByValue[i];
+                } else {
+                    thisCard.add(this.cardsByValue[i]);
+                }
+            }
+        }
         this.bet = Integer.parseInt(bet);
     }
 
     @Override public int compareTo(Hand other) {
-
         if(this.getRank() != other.getRank()) {
             return this.getRank() - other.getRank();
         } else {
@@ -83,18 +82,26 @@ class Hand implements Comparable<Hand> {
     }
     
     private int getRank() {
-        int i = thisCard.size();
-        switch (i) {
+        // Append jokers to dominant value with most cards
+        ArrayList<Integer> temp  = new ArrayList<>(thisCard);
+        temp.sort((a,b) -> a-b);
+        if(temp.size() > 0) {
+            int u = temp.remove(temp.size()-1); 
+            temp.add(nbrJokers+u);
+        }
+        int ii = temp.size();
+        // Get rank based on how many values are present in hand. Value of cards does not matter!
+        switch (ii) {
             case 1:
                 return 7;
             case 2:
-                if (thisCard.contains(4)) {
+                if (temp.contains(4)) {
                     return 6;
                 } else {
                     return 5;
                 }
             case 3:
-                if (thisCard.contains(3)) {
+                if (temp.contains(3)) {
                     return 4;
                 } else {
                     return 3;
@@ -104,7 +111,7 @@ class Hand implements Comparable<Hand> {
             case 5:
                 return 1;
             default: 
-                return 0;
+                return 7;
         }
     }
 
