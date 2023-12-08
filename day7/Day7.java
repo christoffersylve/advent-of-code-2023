@@ -8,6 +8,7 @@ import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+
 public class Day7 {
 
     static ArrayList<Hand> hands = new ArrayList<>();
@@ -114,9 +115,4 @@ class Hand implements Comparable<Hand> {
                 return 7;
         }
     }
-
-
-
-
-
 }
