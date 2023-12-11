@@ -167,28 +167,29 @@ public class Day10 {
 
         int maxNbrStepsInLoop = 0;
 
-        // System.out.println();
-        // System.out.println("Loop Matrix:");
-        // for(int[] y:loopMatrix) {
-        //     System.out.println();
-        //     for(int x:y) {
-        //         System.out.print(x+" ");
-        //     }
-        // }
-        // System.out.println();
+        System.out.println();
+        System.out.println("Loop Matrix:");
+        
+        for(int[] y:loopMatrix) {
+            System.out.println();
+            for(int x:y) {
+                System.out.print(x+" ");
+            }
+        }
 
-        // System.out.println();
-        // System.out.println("Visit Matrix:");
-        // for(int[] y:visitMatrix) {
-        //     System.out.println();
-        //     for(int x:y) {
-        //         System.out.print(x+" ");
-        //     }
-        // }
-        // System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Visit Matrix:");
 
+        for(int[] y:visitMatrix) {
+            System.out.println();
+            for(int x:y) {
+                System.out.print(x+" ");
+            }
+        }
 
-        // System.out.println();
+        System.out.println();
+        System.out.println();
         
         for(int y=0; y<loopMatrix.length;y++) {
             for(int x=0;x<loopMatrix[y].length;x++) {
