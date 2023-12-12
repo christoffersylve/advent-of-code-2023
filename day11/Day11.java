@@ -46,7 +46,7 @@ public class Day11 {
             isHorSpace = true;
         }
     }
-    
+
     private static void problem(long space) {
         long sum = 0;
         for(long[] start:points) {
