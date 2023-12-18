@@ -17,8 +17,6 @@ public class Day12 {
 
     public static void main(String[] args) throws IOException {
         readFromFile("day12/input.txt");
-        int[] a = {1,1,3};
-        //valid(".#...#.....##", a);
         problem1();
     }
 
@@ -98,8 +96,6 @@ public class Day12 {
                     sum++;
                 }
             }
-            // System.out.println("Iteration:  " + i + " Sum: " + sum);
-            // System.out.println();
         }
 
         System.out.println("Problem 1: "+sum);
@@ -134,6 +130,7 @@ public class Day12 {
 
     }
 
+    // Never used
     public static BigInteger ncr(int n, int r) {
         BigInteger result = BigInteger.ONE;
         for (int i = 1; i <= r; i++) result = result.multiply(BigInteger.valueOf(n - i + 1)).divide(BigInteger.valueOf(i));
